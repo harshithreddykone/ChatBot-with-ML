@@ -102,29 +102,10 @@ model.add(Dense(8, activation='relu'))
 model.add(Dense(8, activation='relu'))
 model.add(Dense(len(train_y[0]), activation='softmax'))
 
-tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=1)
-tensorboard_callback = keras.callbacks.TensorBoard(log_dir='keras_logs')
-model_checkpoint_callback = keras.callbacks.ModelCheckpoint(filepath='model_checkpoint.h5', save_best_only=True)
-early_stopping_callback = keras.callbacks.EarlyStopping(patience=3, restore_best_weights=True)
+
+#hidden Code.
 
 
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-model.fit(train_x, train_y, epochs=epochs, batch_size=batch_size,
-          callbacks=[tensorboard_callback, model_checkpoint_callback, early_stopping_callback])
-
-model.save('model.keras')
-
-
-pickle.dump({'words': words, 'classes': classes, 'train_x': train_x, 'train_y': train_y}, open("training_data", "wb"))
-
-
-data = pickle.load(open("training_data", "rb"))
-words = data['words']
-classes = data['classes']
-train_x = data['train_x']
-# ... (Previous code)
-train_x = data['train_x']
-train_y = data['train_y']
 
 # Load model
 loaded_model = keras.models.load_model('model.keras')
